@@ -4,7 +4,8 @@ Running neural network on IOS(version 10.0 or newer) use GPU (support Keras mode
 此库为IOS(版本 >= 10.0)上调用MetalPerformanceShaders和Metal API，在GPU上运行神经网络。当前支持转换keras模型
 ## Features
  - Use GPU running neural network, improve performance and save more phone battery.
- - Support keras model
+ - Support keras model.
+ - No need import any framework just Apple's MetalPerformanceShaders.
 
 ## 2019-01-13 V0.1
  - 支持keras图片分类模型转换,支持keras官方模型： [Mobilenet](https://keras.io/applications/#mobilenet)\ [MobilenetV2](https://keras.io/applications/#mobilenetv2)\ [Xception](https://keras.io/applications/#mobilenetv2)
@@ -23,8 +24,8 @@ open and run SimpleMobile.xcodeproj
 #### 2.1转换官方模型 Convert keras official model
 ```shell
 python convert_keras.py --network-path ./network.json --weights-path ./weights.bin --model mobilenet
---network-path 模型结构文件，必须为.json结尾
---weights-path 模型weights文件，必须为.bin结尾
+--network-path 模型结构文件，必须为.json结尾  file extension must be .json
+--weights-path 模型weights文件，必须为.bin结尾 file extension must be .bin
 --model 可选择mobilnet\mobilenetv2\xception
 ```
 
@@ -43,6 +44,7 @@ weights.tofile(weights_file)
 weights_file.close()  #调用example/python/convert_weights方法，转换weigths
 ```
 注：自己训练的keras模型仅支持[layer列表](https://github.com/luozhiping/neural_network_on_ios/blob/master/Document/layer_list.markdown)中支持的layer（layer支持会持续更新）
+
 ps: my own model only support some layer in [layer list](https://github.com/luozhiping/neural_network_on_ios/blob/master/Document/layer_list.markdown)
 ### 3.加载模型 load model
 ``` swift

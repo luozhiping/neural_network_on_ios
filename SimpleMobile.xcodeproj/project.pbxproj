@@ -19,17 +19,9 @@
 		11134BB121DE06B8002454C6 /* keras_mobilenet.bin in Resources */ = {isa = PBXBuildFile; fileRef = 11134BB021DE06B8002454C6 /* keras_mobilenet.bin */; };
 		11134BB321DE5349002454C6 /* keras_mobilenetv2.bin in Resources */ = {isa = PBXBuildFile; fileRef = 11134BB221DE5349002454C6 /* keras_mobilenetv2.bin */; };
 		11134BB521DE5384002454C6 /* official_mobilenetv2.json in Resources */ = {isa = PBXBuildFile; fileRef = 11134BB421DE5384002454C6 /* official_mobilenetv2.json */; };
-		11134BB721DF8967002454C6 /* official_xception.json in Resources */ = {isa = PBXBuildFile; fileRef = 11134BB621DF8967002454C6 /* official_xception.json */; };
-		11134BB921DF8A9D002454C6 /* keras_xception.bin in Resources */ = {isa = PBXBuildFile; fileRef = 11134BB821DF8A9D002454C6 /* keras_xception.bin */; };
 		11134BBB21DF9B60002454C6 /* LayerTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11134BBA21DF9B60002454C6 /* LayerTree.swift */; };
-		11134BBD21E2F7FC002454C6 /* keras_yolov3.json in Resources */ = {isa = PBXBuildFile; fileRef = 11134BBC21E2F7FB002454C6 /* keras_yolov3.json */; };
-		11134BBF21E3913C002454C6 /* keras_yolov3.bin in Resources */ = {isa = PBXBuildFile; fileRef = 11134BBE21E3913B002454C6 /* keras_yolov3.bin */; };
-		1113A5A321EC6D4400200FE6 /* network.json in Resources */ = {isa = PBXBuildFile; fileRef = 1113A5A121EC6D4400200FE6 /* network.json */; };
-		1113A5A421EC6D4400200FE6 /* weights.bin in Resources */ = {isa = PBXBuildFile; fileRef = 1113A5A221EC6D4400200FE6 /* weights.bin */; };
 		11147D2A21EC2226007B3903 /* synset_words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 11147D2921EC2226007B3903 /* synset_words.txt */; };
 		116F9FB021E788530024FD44 /* Floortje224.png in Resources */ = {isa = PBXBuildFile; fileRef = 116F9FAF21E788530024FD44 /* Floortje224.png */; };
-		116F9FB221E826880024FD44 /* keras_yolov3_tiny.json in Resources */ = {isa = PBXBuildFile; fileRef = 116F9FB121E826870024FD44 /* keras_yolov3_tiny.json */; };
-		116F9FB421E82D940024FD44 /* keras_yolov3_tiny.bin in Resources */ = {isa = PBXBuildFile; fileRef = 116F9FB321E82D940024FD44 /* keras_yolov3_tiny.bin */; };
 		11C3236D21C0A02A00CF2A4B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C3236C21C0A02A00CF2A4B /* AppDelegate.swift */; };
 		11C3236F21C0A02A00CF2A4B /* ViewControllerMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C3236E21C0A02A00CF2A4B /* ViewControllerMain.swift */; };
 		11C3237221C0A02A00CF2A4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11C3237021C0A02A00CF2A4B /* Main.storyboard */; };
@@ -65,17 +57,9 @@
 		11134BB021DE06B8002454C6 /* keras_mobilenet.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = keras_mobilenet.bin; sourceTree = "<group>"; };
 		11134BB221DE5349002454C6 /* keras_mobilenetv2.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = keras_mobilenetv2.bin; sourceTree = "<group>"; };
 		11134BB421DE5384002454C6 /* official_mobilenetv2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = official_mobilenetv2.json; sourceTree = "<group>"; };
-		11134BB621DF8967002454C6 /* official_xception.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = official_xception.json; sourceTree = "<group>"; };
-		11134BB821DF8A9D002454C6 /* keras_xception.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = keras_xception.bin; sourceTree = "<group>"; };
 		11134BBA21DF9B60002454C6 /* LayerTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerTree.swift; sourceTree = "<group>"; };
-		11134BBC21E2F7FB002454C6 /* keras_yolov3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = keras_yolov3.json; sourceTree = "<group>"; };
-		11134BBE21E3913B002454C6 /* keras_yolov3.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = keras_yolov3.bin; sourceTree = "<group>"; };
-		1113A5A121EC6D4400200FE6 /* network.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = network.json; path = SimpleMobile/example/python/network.json; sourceTree = SOURCE_ROOT; };
-		1113A5A221EC6D4400200FE6 /* weights.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = weights.bin; path = SimpleMobile/example/python/weights.bin; sourceTree = SOURCE_ROOT; };
 		11147D2921EC2226007B3903 /* synset_words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = synset_words.txt; sourceTree = "<group>"; };
 		116F9FAF21E788530024FD44 /* Floortje224.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Floortje224.png; sourceTree = "<group>"; };
-		116F9FB121E826870024FD44 /* keras_yolov3_tiny.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = keras_yolov3_tiny.json; sourceTree = "<group>"; };
-		116F9FB321E82D940024FD44 /* keras_yolov3_tiny.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = keras_yolov3_tiny.bin; sourceTree = "<group>"; };
 		11C3236921C0A02A00CF2A4B /* SimpleMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11C3236C21C0A02A00CF2A4B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11C3236E21C0A02A00CF2A4B /* ViewControllerMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerMain.swift; sourceTree = "<group>"; };
@@ -136,8 +120,6 @@
 		11147D2C21EC24ED007B3903 /* network */ = {
 			isa = PBXGroup;
 			children = (
-				1113A5A121EC6D4400200FE6 /* network.json */,
-				1113A5A221EC6D4400200FE6 /* weights.bin */,
 				11134BB421DE5384002454C6 /* official_mobilenetv2.json */,
 				11134BA821D4C829002454C6 /* official_mobilenet.json */,
 				11134BB221DE5349002454C6 /* keras_mobilenetv2.bin */,
@@ -166,9 +148,6 @@
 			isa = PBXGroup;
 			children = (
 				11E5701B21EB78D200BEBC75 /* example */,
-				11134BBC21E2F7FB002454C6 /* keras_yolov3.json */,
-				116F9FB121E826870024FD44 /* keras_yolov3_tiny.json */,
-				11134BB621DF8967002454C6 /* official_xception.json */,
 				11C3239A21C3320000CF2A4B /* Weight */,
 				11C3237E21C0A06E00CF2A4B /* SimpleCNN */,
 				11C3236C21C0A02A00CF2A4B /* AppDelegate.swift */,
@@ -231,9 +210,6 @@
 		11C3239A21C3320000CF2A4B /* Weight */ = {
 			isa = PBXGroup;
 			children = (
-				116F9FB321E82D940024FD44 /* keras_yolov3_tiny.bin */,
-				11134BBE21E3913B002454C6 /* keras_yolov3.bin */,
-				11134BB821DF8A9D002454C6 /* keras_xception.bin */,
 			);
 			path = Weight;
 			sourceTree = "<group>";
@@ -324,23 +300,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11134BB721DF8967002454C6 /* official_xception.json in Resources */,
 				11134BB321DE5349002454C6 /* keras_mobilenetv2.bin in Resources */,
 				11134BB121DE06B8002454C6 /* keras_mobilenet.bin in Resources */,
-				11134BBD21E2F7FC002454C6 /* keras_yolov3.json in Resources */,
 				11134BB521DE5384002454C6 /* official_mobilenetv2.json in Resources */,
 				11C3238A21C0A30000CF2A4B /* Floortje.png in Resources */,
-				1113A5A421EC6D4400200FE6 /* weights.bin in Resources */,
 				11147D2A21EC2226007B3903 /* synset_words.txt in Resources */,
 				11134BA921D4C829002454C6 /* official_mobilenet.json in Resources */,
 				11C3237721C0A02B00CF2A4B /* LaunchScreen.storyboard in Resources */,
-				116F9FB421E82D940024FD44 /* keras_yolov3_tiny.bin in Resources */,
-				116F9FB221E826880024FD44 /* keras_yolov3_tiny.json in Resources */,
-				11134BB921DF8A9D002454C6 /* keras_xception.bin in Resources */,
 				11E5701A21E83D2C00BEBC75 /* Floortje299.png in Resources */,
 				11C3237421C0A02B00CF2A4B /* Assets.xcassets in Resources */,
-				1113A5A321EC6D4400200FE6 /* network.json in Resources */,
-				11134BBF21E3913C002454C6 /* keras_yolov3.bin in Resources */,
 				11C3237221C0A02A00CF2A4B /* Main.storyboard in Resources */,
 				116F9FB021E788530024FD44 /* Floortje224.png in Resources */,
 			);
