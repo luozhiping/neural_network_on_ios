@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller Main-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewControllerMain" customModule="SimpleMobile" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3qj-Q5-LwM"/>
+                        <viewControllerLayoutGuide type="bottom" id="B5u-Jd-HQR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="eGS-jd-AwC">
+                                <rect key="frame" x="5" y="40" width="370" height="143"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <string key="title">ImageClassficationExample
+(Mobilenet\MobilenetV2\Xception)</string>
+                                </state>
+                                <connections>
+                                    <segue destination="WaY-1W-NtZ" kind="show" id="9DB-Su-Jnp"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1156" y="-4.0479760119940034"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="FXv-hw-Xff">
+            <objects>
+                <viewController id="WaY-1W-NtZ" customClass="ViewController" customModule="SimpleMobile" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mK3-bZ-D96"/>
+                        <viewControllerLayoutGuide type="bottom" id="Svk-kI-LXf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mhG-WT-n6x">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PeJ-l6-YcZ">
+                                <rect key="frame" x="0.0" y="0.0" width="86" height="667"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="h9D-gR-mWe" appends="YES" id="R9P-9O-6rm"/>
+                                    <outletCollection property="gestureRecognizers" destination="S5b-KN-avm" appends="YES" id="M8e-si-bow"/>
+                                </connections>
+                            </imageView>
+                            <label hidden="YES" opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="100" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAk-jX-b5r">
+                                <rect key="frame" x="94" y="133" width="280" height="514"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="7m6-qv-trB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="shC-rg-mAC">
+                                <rect key="frame" x="271" y="20" width="88" height="41"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <state key="normal" title="Camera">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="cameraWithSender:" destination="WaY-1W-NtZ" eventType="touchUpInside" id="6n2-Dt-Mde"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IOv-sB-ugA">
+                                <rect key="frame" x="94" y="19" width="155" height="41"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <state key="normal" title="Run Network">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="tap:" destination="jkO-P8-Lde" eventType="touchUpInside" id="XDd-du-HKZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WAk-jX-b5r" firstAttribute="leading" secondItem="PeJ-l6-YcZ" secondAttribute="trailing" constant="8" symbolic="YES" id="1x6-TA-uRr"/>
+                            <constraint firstItem="PeJ-l6-YcZ" firstAttribute="bottom" secondItem="Svk-kI-LXf" secondAttribute="top" id="6Wo-Ef-sif"/>
+                            <constraint firstItem="Svk-kI-LXf" firstAttribute="top" secondItem="WAk-jX-b5r" secondAttribute="bottom" constant="20" id="CUm-9l-ZpF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="shC-rg-mAC" secondAttribute="trailing" id="Ijx-1K-ySK"/>
+                            <constraint firstItem="IOv-sB-ugA" firstAttribute="top" secondItem="mK3-bZ-D96" secondAttribute="bottom" constant="-1" id="MNH-k9-qVp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WAk-jX-b5r" secondAttribute="trailing" constant="-15" id="TRi-Rb-GLf"/>
+                            <constraint firstItem="PeJ-l6-YcZ" firstAttribute="top" secondItem="mhG-WT-n6x" secondAttribute="top" id="XLI-mk-N5z"/>
+                            <constraint firstItem="PeJ-l6-YcZ" firstAttribute="centerX" secondItem="mhG-WT-n6x" secondAttribute="centerX" id="ZKu-sw-I9U"/>
+                            <constraint firstItem="IOv-sB-ugA" firstAttribute="leading" secondItem="PeJ-l6-YcZ" secondAttribute="trailing" constant="8" id="ZzU-sw-K3j"/>
+                            <constraint firstItem="WAk-jX-b5r" firstAttribute="top" secondItem="mhG-WT-n6x" secondAttribute="topMargin" constant="113" id="lCU-mq-SMe"/>
+                            <constraint firstItem="shC-rg-mAC" firstAttribute="leading" secondItem="IOv-sB-ugA" secondAttribute="trailing" constant="22" id="vUd-b2-gmQ"/>
+                            <constraint firstItem="shC-rg-mAC" firstAttribute="top" secondItem="mK3-bZ-D96" secondAttribute="bottom" id="whO-s2-Rcc"/>
+                            <constraint firstItem="PeJ-l6-YcZ" firstAttribute="top" secondItem="mK3-bZ-D96" secondAttribute="bottom" constant="129" id="ydX-a1-fxM"/>
+                            <constraint firstItem="PeJ-l6-YcZ" firstAttribute="leading" secondItem="mhG-WT-n6x" secondAttribute="leading" id="zha-Q8-rOB"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ZKu-sw-I9U"/>
+                                <exclude reference="ydX-a1-fxM"/>
+                            </mask>
+                        </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="6y1-fT-1Ef" appends="YES" id="rp3-uB-XPq"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="predictLabel" destination="WAk-jX-b5r" id="emM-PL-mXN"/>
+                        <outlet property="predictView" destination="PeJ-l6-YcZ" id="rMz-Ta-Qb6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jkO-P8-Lde" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="h9D-gR-mWe" userLabel="SwipeLeft">
+                    <connections>
+                        <action selector="swipeLeftWithSender:" destination="WaY-1W-NtZ" id="7xs-NC-fDQ"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="S5b-KN-avm" userLabel="SwipeRight">
+                    <connections>
+                        <action selector="swipeRightWithSender:" destination="WaY-1W-NtZ" id="GE8-R4-2Aq"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <tapGestureRecognizer id="6y1-fT-1Ef">
+                    <connections>
+                        <action selector="tap:" destination="WaY-1W-NtZ" id="Ikh-z2-Ioc"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="-4.6875" y="-3.5156249999999996"/>
+        </scene>
+    </scenes>
+</document>
