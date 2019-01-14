@@ -13,7 +13,7 @@ Running neural network on IOS use GPU (support Keras model)
 ### 1.打开example （my xcode version: 10.1）Use example
 open and run SimpleMobile.xcodeproj
 
-![](Document/example.png | width=100)
+![](Document/example.png)
 
 ### 2.转换keras模型 Convert keras model
 #### 2.1转换官方模型 Convert keras official model
