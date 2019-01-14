@@ -1,7 +1,10 @@
 # neural_network_on_ios
 Running neural network on IOS(version 10.0 or newer) use GPU (support Keras model)
 
-此库为IOS(版本 >= 10.0)上使用调用MetalPerformanceShaders和Metal API，在GPU上运行神经网络。当前支持转换keras模型
+此库为IOS(版本 >= 10.0)上调用MetalPerformanceShaders和Metal API，在GPU上运行神经网络。当前支持转换keras模型
+## Features
+ - Use GPU running neural network, improve performance and save more phone battery.
+ - Support keras model
 
 ## 2019-01-13 V0.1
  - 支持keras图片分类模型转换,支持keras官方模型： [Mobilenet](https://keras.io/applications/#mobilenet)\ [MobilenetV2](https://keras.io/applications/#mobilenetv2)\ [Xception](https://keras.io/applications/#mobilenetv2)
