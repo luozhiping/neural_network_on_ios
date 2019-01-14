@@ -69,5 +69,9 @@ Net.predict(input: inputImage, device: device)  //see example for more detail
 - ToDo
     - Support more keras model and layers
 
+### 6.Document
+
+- [Document](./Document/README.markdown)
+
 ### Reference
 Github: A neural network toolkit for Metal [https://github.com/hollance/Forge](https://github.com/hollance/Forge)

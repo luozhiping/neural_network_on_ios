@@ -272,7 +272,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         var returnString = ""
         var j = 0
         var i = 0
-        while( j < 5){
+        while( j < 5) {
             let (prob, index) = indexedProbabilities[i]
             // labels at 0 and 1001 to 1008 are invalid (no labels were provided for these indices) so we ignore these
             if((index < 1001) && (index > 0)){

@@ -148,7 +148,6 @@
 			isa = PBXGroup;
 			children = (
 				11E5701B21EB78D200BEBC75 /* example */,
-				11C3239A21C3320000CF2A4B /* Weight */,
 				11C3237E21C0A06E00CF2A4B /* SimpleCNN */,
 				11C3236C21C0A02A00CF2A4B /* AppDelegate.swift */,
 				11C3236E21C0A02A00CF2A4B /* ViewControllerMain.swift */,
@@ -205,13 +204,6 @@
 				11C3238E21C1563200CF2A4B /* Layer.swift */,
 			);
 			path = Layer;
-			sourceTree = "<group>";
-		};
-		11C3239A21C3320000CF2A4B /* Weight */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Weight;
 			sourceTree = "<group>";
 		};
 		11C323B321C88D4100CF2A4B /* Tools */ = {
