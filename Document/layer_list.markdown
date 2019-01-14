@@ -1,8 +1,8 @@
 # Layer list 
 
-|layer name(keras class name)|support params|
-|---|---|---|
-|Conv2D|kernel:3x3\1x1,padding:same\valid|
+| layer name(keras class name)| support params|
+| :----------| :-----------|
+| Conv2D  |kernel:3x3\1x1,padding:same\valid|
 |DepthwiseConv2D|kernel:3x3|
 |SeparableConv2D||
 |Dense||
