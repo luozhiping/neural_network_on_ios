@@ -8,7 +8,7 @@ parser.add_argument('--network-path', metavar='DIR',
                     help='path to save network json file', default='./network.json')
 parser.add_argument('--weights-path', metavar='DIR',
                     help='path to save weights file', default='./weights.bin')
-parser.add_argument('--model', default='mobilenet', help='Type of the Keras Model. mobilenet|mobilenetV2|xception')
+parser.add_argument('--model', default='mobilenet', help='Type of the Keras Model. mobilenet|mobilenetV2|xception|inceptionv3')
 
 
 if __name__ == "__main__":
@@ -16,7 +16,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     model = args.model.lower()
-    assert model in ["mobilenet", "mobilenetv2", "xception"], "model support mobilenet|mobilenetV2|xception, you can try other model by manual"
+    assert model in ["mobilenet", "mobilenetv2", "xception", "inceptionv3"], "model support mobilenet|mobilenetV2|xception|inceptionv3, you can try other model by manual"
 
     kera_model = None
     if model == "mobilenet":
@@ -25,6 +25,8 @@ if __name__ == "__main__":
         kera_model = MobileNetV2(weights="imagenet")
     elif model == "xception":
         kera_model = Xception(weights='imagenet', input_shape=(299,299,3))
+    elif model == "inceptionv3":
+        kera_model = InceptionV3(weights='imagenet', input_shape=(299, 299, 3))
 
     network = kera_model.to_json()
     network_file = open(args.network_path, 'w')

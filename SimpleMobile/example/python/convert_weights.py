@@ -27,10 +27,16 @@ def convert_weights(model):
                 weights.extend(weight[1])
         elif isinstance(layer, BatchNormalization):
             weight = layer.get_weights()
-            weights.extend(weight[0])
-            weights.extend(weight[1])
-            weights.extend(weight[2])
-            weights.extend(weight[3])
+            if layer.scale:
+                weights.extend(weight[0])
+                weights.extend(weight[1])
+                weights.extend(weight[2])
+                weights.extend(weight[3])
+            else:
+                weights.extend(np.ones(weight[0].shape))
+                weights.extend(weight[0])
+                weights.extend(weight[1])
+                weights.extend(weight[2])
             # print("BatchNormalization:", weight[0][0:8],weight[1][0:8],weight[2][0:8],weight[3][:8])
         elif isinstance(layer, Dense):
             weight = layer.get_weights()
