@@ -78,7 +78,7 @@ func offsetForConvolution(padding: PaddingType,
                           strideInPixelsX: Int,
                           strideInPixelsY: Int) -> MPSOffset {
     if padding == .same {
-        if kernelWidth == 1 && strideInPixelsX == 2{
+        if kernelWidth == 1{
             return MPSOffset(x: 0, y: 0, z: 0)
         }
         let padH = (destinationHeight - 1) * strideInPixelsY + kernelHeight - sourceHeight
@@ -127,6 +127,7 @@ public class Convolution: SimpleCNNLayer {
         //        self.inputShape = inputShape
         //        self.outputShape = DataShape(width: inputShape.width/stride.0, height: inputShape.height/stride.0, channels: outputChannels)
         super.init(name: name, useBias: useBias)
+        
     }
     
     override public func setShape(inputShape: DataShape?, outputShape: DataShape?) {
@@ -156,7 +157,7 @@ public class Convolution: SimpleCNNLayer {
     
     override public func createNetWork(device: MTLDevice) {
         let act = createActivation(activation: activation, device: device)
-        let desc = MPSCNNConvolutionDescriptor(kernelWidth: kernel.0, kernelHeight: kernel.1, inputFeatureChannels: inputShape!.channels, outputFeatureChannels: outputShape!.channels, neuronFilter: act)
+        let desc = MPSCNNConvolutionDescriptor(kernelWidth: kernel.1, kernelHeight: kernel.0, inputFeatureChannels: inputShape!.channels, outputFeatureChannels: outputShape!.channels, neuronFilter: act)
         
         desc.strideInPixelsX = stride.0
         desc.strideInPixelsY = stride.1
@@ -172,11 +173,11 @@ public class Convolution: SimpleCNNLayer {
                                            sourceHeight: inputShape!.height,
                                            destinationWidth: outputShape!.width,
                                            destinationHeight: outputShape!.height,
-                                           kernelWidth: kernel.0,
-                                           kernelHeight: kernel.1,
+                                           kernelWidth: kernel.1,
+                                           kernelHeight: kernel.0,
                                            strideInPixelsX: stride.0,
                                            strideInPixelsY: stride.1)
-//        print("\(self.name)offset:", conv.offset, (destinationData as! ImageData).image!.texture.width, (destinationData as! ImageData).image!.texture.textureType == MTLTextureType.type2DArray, kernel.0)
+//        print("\(self.name)offset:", conv.offset, (destinationData as! ImageData).image!.texture.width, (destinationData as! ImageData).image!.texture.textureType == MTLTextureType.type2DArray, kernel.0, kernel.1)
         super.encode(commandBuffer: commandBuffer,
                      sourceData: sourceData,
                      destinationData: destinationData)
@@ -348,6 +349,9 @@ public class SeparableConv: Layer {
         self.pointwise = Convolution(kernel: (1, 1), outputChannels: outChannels, stride: (1, 1), padding: padding, activation: activation, name: name, useBias: useBias)
         self.device = device
         super.init(name: name, useBias: useBias)
+        
+        self.depthwise.tmpImageCount += 1
+        self.pointwise.tmpImageCount += 1
     }
     
     public override func setShape(inputShape: DataShape?, outputShape: DataShape?) {

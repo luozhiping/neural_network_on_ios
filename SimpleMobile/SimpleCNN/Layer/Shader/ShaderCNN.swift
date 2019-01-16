@@ -223,6 +223,7 @@ public class ShaderDepthwiseConvolution: ShaderLayer {
         }
     }
     
+    
     public override func createNetWork(device: MTLDevice) {
         let functionName = "depthwiseConv3x3_array"
         pipeline = initFunction(device: device, name: functionName)
@@ -354,6 +355,9 @@ public class ShaderSeparableConv: ShaderLayer {
         self.depthwise = ShaderDepthwiseConvolution(device:device, kernel: kernel, stride: stride, activation: activation!,  name: name,useBias: useBias)
         self.pointwise = Convolution(kernel: (1, 1), outputChannels: outChannels, stride: (1, 1), padding: .same, activation: activation, name: name, useBias: useBias)
         super.init(device: device, name: name, useBias: useBias)
+        
+        self.depthwise.tmpImageCount += 1
+        self.pointwise.tmpImageCount += 1
     }
     
     public override func setShape(inputShape: DataShape?, outputShape: DataShape?) {
@@ -393,7 +397,7 @@ public class ShaderSeparableConv: ShaderLayer {
     
     public override func encode(commandBuffer: MTLCommandBuffer, sourceData: DataWrapper, destinationData: DataWrapper) {
         self.depthwise.encode(commandBuffer: commandBuffer, sourceData: sourceData, destinationData: self.depthwise.getOutputData(commandBuffer: commandBuffer, device: device))
-        self.pointwise.encode(commandBuffer: commandBuffer, sourceData: self.depthwise.getOutputData(commandBuffer: commandBuffer, device: device), destinationData: destinationData)
+        self.pointwise.encode(commandBuffer: commandBuffer, sourceData: self.depthwise.getOutputData()!, destinationData: destinationData)
     }
     
     public override func getOutputData(commandBuffer: MTLCommandBuffer, device: MTLDevice) -> DataWrapper {

@@ -40,6 +40,7 @@ open class Layer {
     
     internal(set) public var isTemporary: Bool = false
     internal(set) public var forceNotTemp: Bool = false
+    internal(set) public var tmpImageCount: Int = 0
 
     internal(set) public var childrenLayers: [Layer] = []
     internal(set) public var fatherLayer: Layer?
@@ -66,6 +67,7 @@ open class Layer {
             }
             
         }
+        self.tmpImageCount += 1
         
     }
 
@@ -189,7 +191,7 @@ open class Layer {
             imageDesc!.storageMode = .private
             imageDesc!.usage = [.shaderRead, .shaderWrite]
         }
-        if self.forceNotTemp || self.childrenLayers.count > 1 {
+        if self.forceNotTemp {
             self.isTemporary = false
         }
     }
@@ -220,7 +222,15 @@ open class Layer {
     
     open func getOutputData(commandBuffer: MTLCommandBuffer, device: MTLDevice) -> DataWrapper {
         if #available(iOS 10, *) {
-            self.outputData = ImageData(imageDesc: _imageDesc as! MPSImageDescriptor, commandBuffer: commandBuffer, device: device, isTemporary: isTemporary)
+            let output = ImageData(imageDesc: _imageDesc as! MPSImageDescriptor, commandBuffer: commandBuffer, device: device, isTemporary: isTemporary)
+            if isTemporary {
+                if let temp = output.image as? MPSTemporaryImage {
+                    temp.readCount = tmpImageCount
+//                    print("\(self.name)tmp count:\(tmpImageCount), childs:\(self.childrenLayers.count)")
+                }
+            }
+//            print("\(self.name) ,\(isTemporary) ")
+            self.outputData = output
             return self.outputData!
         } else {
             return DataWrapper()
@@ -235,10 +245,10 @@ open class Layer {
         var p = pointer
         let weight = p
         p += self.getWeightSize()
-//        print(name, "weightsize:", getWeightSize(), weight[0], weight[1], weight[2])
+        print(name, "weightsize:", getWeightSize(), weight[0], weight[1], weight[2])
         let bias = p
         p += self.getBiasSize()
-//        print(name, "biassize:", getBiasSize(), bias[0])
+        print(name, "biassize:", getBiasSize(), bias[0])
         self.weight = Weights(weightsPointer: weight, biasPointer: bias)
         return p
     }
@@ -296,9 +306,16 @@ func LayerFactory(layer: NSDictionary, device: MTLDevice, layers: LayerTree) -> 
             break
         case "DepthwiseConv2D":
             if #available(iOS 11, *) {
-                l.append(DepthwiseConvolution(kernel: (kernel_size![0] as! Int, kernel_size![1] as! Int), stride: (strides![0] as! Int, strides![1] as! Int), activation: activation!, padding: paddingType, useBias: use_bias!, name: name == nil ? "DepthwiseConvolution": name!))
+                l.append(ShaderDepthwiseConvolution(device:device, kernel: (kernel_size![0] as! Int, kernel_size![1] as! Int), stride: (strides![0] as! Int, strides![1] as! Int), padding:paddingType, activation: activation!,  name: name == nil ? "ShaderDepthwiseConvolution": name!,useBias: use_bias!))
+//                l.append(DepthwiseConvolution(kernel: (kernel_size![0] as! Int, kernel_size![1] as! Int), stride: (strides![0] as! Int, strides![1] as! Int), activation: activation!, padding: paddingType, useBias: use_bias!, name: name == nil ? "DepthwiseConvolution": name!))
             } else {
                 l.append(ShaderDepthwiseConvolution(device:device, kernel: (kernel_size![0] as! Int, kernel_size![1] as! Int), stride: (strides![0] as! Int, strides![1] as! Int), padding:paddingType, activation: activation!,  name: name == nil ? "ShaderDepthwiseConvolution": name!,useBias: use_bias!))
+            }
+            break
+        case "AveragePooling2D":
+            let pool_size = config["pool_size"] as? NSArray
+            if #available(iOS 10, *) {
+                l.append(AveragePooling(poolSize: (pool_size![0] as! Int, pool_size![1] as! Int), stride: (strides![0] as! Int, strides![1] as! Int), padding: paddingType, name: name!))
             }
             break
         case "GlobalAveragePooling2D":
@@ -374,9 +391,8 @@ func LayerFactory(layer: NSDictionary, device: MTLDevice, layers: LayerTree) -> 
             break
         case "SeparableConv2D":
             if #available(iOS 11, *) {
-                l.append(SeparableConv(device: device, kernel: (kernel_size![0] as! Int, kernel_size![1] as! Int), stride: (strides![0] as! Int, strides![1] as! Int), padding: paddingType, outChannels: channels, activation: activation!, name: name!, useBias: use_bias!))
-//                l.append(ShaderDepthwiseConvolution(device:device, kernel: (kernel_size![0] as! Int, kernel_size![1] as! Int), stride: (strides![0] as! Int, strides![1] as! Int), activation: activation!,  name: name == nil ? "ShaderDepthwiseConvolution": name!,useBias: use_bias!))
-//                l.append(ShaderConvolution(device: device, kernel: (1, 1), outputChannels: channels, stride: (1, 1), padding: .same, activation: activation, name: name == nil ? "ShaderConvolution" : name!, useBias: use_bias!))
+//                l.append(SeparableConv(device: device, kernel: (kernel_size![0] as! Int, kernel_size![1] as! Int), stride: (strides![0] as! Int, strides![1] as! Int), padding: paddingType, outChannels: channels, activation: activation!, name: name!, useBias: use_bias!))
+                l.append(ShaderSeparableConv(device: device, kernel: (kernel_size![0] as! Int, kernel_size![1] as! Int), stride: (strides![0] as! Int, strides![1] as! Int), padding: paddingType, outChannels: channels, activation: activation!, name: name!, useBias: use_bias!))
             } else {
                 l.append(ShaderSeparableConv(device: device, kernel: (kernel_size![0] as! Int, kernel_size![1] as! Int), stride: (strides![0] as! Int, strides![1] as! Int), padding: paddingType, outChannels: channels, activation: activation!, name: name!, useBias: use_bias!))
 //                l.append(ShaderSeparableConv(device: device, kernel: (kernel_size![0] as! Int, kernel_size![1] as! Int), stride: (strides![0] as! Int, strides![1] as! Int), padding: paddingType, outChannels: channels, activation: activation!, name: name!, useBias: use_bias!))

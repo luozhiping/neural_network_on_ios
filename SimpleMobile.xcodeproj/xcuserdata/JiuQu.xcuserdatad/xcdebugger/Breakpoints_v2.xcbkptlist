@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SimpleMobile/SimpleCNN/Core/LayerTree.swift"
-            timestampString = "569144721.21768"
+            timestampString = "569296655.389856"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "67"
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SimpleMobile/SimpleCNN/Core/LayerTree.swift"
-            timestampString = "569144721.217772"
+            timestampString = "569296655.389931"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "addLayer(layer:inBounds:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SimpleMobile/SimpleCNN/Layer/Preproccess.swift"
-            timestampString = "569035271.27751"
+            timestampString = "569212579.952921"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SimpleMobile/SimpleCNN/Layer/Shader/ShaderPreproccess.swift"
-            timestampString = "569142962.666123"
+            timestampString = "569292378.8779089"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "42"
@@ -74,13 +74,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SimpleMobile/SimpleCNN/Layer/Shader/ShaderPostProccess.swift"
-            timestampString = "569144721.2178741"
+            timestampString = "569296655.390087"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "78"
             endingLineNumber = "78"
             landmarkName = "getWeightSize()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SimpleMobile/SimpleCNN/Layer/Layer.swift"
+            timestampString = "569296655.390152"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "322"
+            endingLineNumber = "322"
+            landmarkName = "LayerFactory(layer:device:layers:)"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

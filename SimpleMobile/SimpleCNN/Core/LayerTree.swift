@@ -63,16 +63,27 @@ public class LayerTree {
                 bounds[bounds.count - 1].addChild(layer: layer)
                 tailLayer = layer
             }
-            if bounds.count == 2{
+            if bounds.count >= 2{
                 if layer is ShaderAdd {
                     (layer as! ShaderAdd).setLayer(layer1: bounds[0], layer2: bounds[1])
-                    bounds[0].forceNotTemp = true
+                    bounds[0].tmpImageCount += 1
+//                    bounds[0].forceNotTemp = true
 //                    bounds[1].forceNotTemp = true
                 } else if layer is ShaderConcatenate {
-                    let l1 = bounds[0].name == inBounds[0] ? bounds[0] : bounds[1]
-                    let l2 = bounds[1].name == inBounds[1] ? bounds[1] : bounds[0]
+                    var concate = [Layer]()
+                    for boundName in inBounds {
+                        for l in bounds {
+                            if l.name == boundName {
+                                concate.append(l)
+                                l.tmpImageCount += 1
+                                print(l.name)
+                            }
+                        }
+                    }
+//                    let l1 = bounds[0].name == inBounds[0] ? bounds[0] : bounds[1]
+//                    let l2 = bounds[1].name == inBounds[1] ? bounds[1] : bounds[0]
 
-                    (layer as! ShaderConcatenate).setLayer(layer1: l1, layer2: l2)
+                    (layer as! ShaderConcatenate).setLayers(layers:concate)
                 }
             }
         }
@@ -138,7 +149,7 @@ public class LayerTree {
                 
             }
             output = headLayer!.predict(device: device, commandBuffer: commandBuffer!, sourceData: input, destinationData: headLayer!.getOutputData(commandBuffer: commandBuffer!, device: device))
-//            output = layers[layers.count-1].getOutputData()
+            output = layers[layers.count-1].getOutputData()
 //            print("get layer output:\(layers[layers.count-1].name)")
             commandBuffer!.commit()
             commandBuffer!.waitUntilCompleted()
@@ -147,6 +158,8 @@ public class LayerTree {
 //
         let outputImage = output as! ImageData
         let results = outputImage.image!.toFloatArray()
+        
+//        print(outputImage.image!.width, outputImage.image!.height, results.count)
         return results
     }
 }

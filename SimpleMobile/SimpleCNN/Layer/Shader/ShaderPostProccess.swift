@@ -128,6 +128,7 @@ public class ShaderRelu: ShaderLayer {
         self.params.negative_slope = negativeSlope
         self.params.threshold = threshold
         super.init(device: device, name: name)
+        
     }
     
     public override func setShape(inputShape: DataShape?, outputShape: DataShape?) {
@@ -257,6 +258,7 @@ public class ShaderAdd: ShaderLayer {
 //                    print("\(self.name): \(out)")
                 }
             }
+            addLayer1!.cleanData()
             super.encode(commandBuffer: commandBuffer, sourceData: sourceData, destinationData: destinationData)
         }
         
@@ -317,24 +319,26 @@ public class ShaderUpSampling: ShaderLayer {
 
 
 public class ShaderConcatenate: ShaderLayer {
-    var addLayer1: Layer?
-    var addLayer2: Layer?
-    public init(device: MTLDevice, name: String = "ShaderAdd") {
+    var layers: [Layer]?
+    public init(device: MTLDevice, name: String = "ShaderConcatenate") {
         //        self.addLayer1 = addLayer1
         //        self.addLayer2 = addLayer2
         super.init(device: device, name: name)
     }
     
-    public func setLayer(layer1: Layer, layer2: Layer) {
-        self.addLayer1 = layer1
-        self.addLayer2 = layer2
-        self.addLayer1!.forceNotTemp = true
-        self.addLayer2!.forceNotTemp = true
+    
+    public func setLayers(layers: [Layer]) {
+        self.layers = layers
     }
     
     public override func setShape(inputShape: DataShape?, outputShape: DataShape?) {
         self.inputShape = inputShape
-        self.outputShape = DataShape(width: inputShape!.width, height: inputShape!.height, channels: addLayer1!.outputShape!.channels+addLayer2!.outputShape!.channels)
+        var channels = 0
+        for l in layers! {
+            channels += l.outputShape!.channels
+        }
+        self.outputShape = DataShape(width: inputShape!.width, height: inputShape!.height, channels: channels)
+//        self.outputShape = DataShape(width: inputShape!.width, height: inputShape!.height, channels: addLayer1!.outputShape!.channels+addLayer2!.outputShape!.channels)
         super.setShape(inputShape: self.outputShape)
     }
     
@@ -345,10 +349,15 @@ public class ShaderConcatenate: ShaderLayer {
     override public func encode(commandBuffer: MTLCommandBuffer, sourceData: DataWrapper, destinationData: DataWrapper) {
         if let pipeline = self.pipeline {
             if let encoder = commandBuffer.makeComputeCommandEncoder() {
+                var textures = [MTLTexture]()
+                for l in layers! {
+                    textures.append(l.getOutputData()!.getTexture()!)
+                }
+                
                 encoder.setComputePipelineState(pipeline)
-                encoder.setTexture(addLayer1!.getOutputData()!.getTexture(), index: 0)
-                encoder.setTexture(addLayer2!.getOutputData()!.getTexture(), index: 1)
-                encoder.setTexture(destinationData.getTexture(), index: 2)
+//                encoder.setTexture(addLayer1!.getOutputData()!.getTexture(), index: 0)
+                encoder.setTextures(textures, range: 0..<textures.count)
+                encoder.setTexture(destinationData.getTexture(), index: 4)
                 var resultdata = [Float](repeating: 0, count: 1)
                 let outVectorBuffer = device.makeBuffer(bytes: &resultdata, length: 16, options: MTLResourceOptions.cpuCacheModeWriteCombined)
                 encoder.setBuffer(outVectorBuffer, offset: 0, index: 0)
@@ -361,6 +370,9 @@ public class ShaderConcatenate: ShaderLayer {
                     data.getBytes(&out, length: 20)
 //                    print("\(self.name): \(out)")
                 }
+            }
+            for l in layers! {
+                l.cleanData()
             }
             super.encode(commandBuffer: commandBuffer, sourceData: sourceData, destinationData: destinationData)
         }

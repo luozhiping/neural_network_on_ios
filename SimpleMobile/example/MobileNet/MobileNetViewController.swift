@@ -55,6 +55,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         Net = Model.init(networkFileName: "official_mobilenet", weightFileName: "keras_mobilenet")
 //        Net = Model.init(networkFileName: "official_mobilenetv2", weightFileName: "keras_mobilenetv2")
 //        Net = Model.init(networkFileName: "official_xception", weightFileName: "keras_xception")
+//        Net = Model.init(networkFileName: "official_inceptionv3", weightFileName: "keras_inceptionv3")
 //        Net = Model.init(networkFileName: "network", weightFileName: "weights")
         Net.printNetwork()
         // we use this CIContext as one of the steps to get a MTLTexture

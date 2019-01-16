@@ -128,12 +128,12 @@ outTexture.write(out, uint2(gid.x, gid.y), gid.z);
 
 if (gid.x == 0 && gid.y ==0 && gid.z == 0) {
     half4 bbb = half4(0);
-    bbb.x = weights[gamma + gid.z].x;
+    bbb.x = weights[0].x;
     bbb.y = weights[beta + gid.z].x;
-    bbb.z = params.neuronA;
-    bbb.w = params.neuronB;
+    bbb.z = weights[mean + gid.z].x;
+    bbb.w = weights[variance + gid.z].x;
     //            t.xy = half2(pos);
-    printBuffer = float4(out);
+    printBuffer = float4(bbb);
     
 }
     
@@ -277,28 +277,58 @@ kernel void upsampling(texture2d_array<half, access::read> inTexture [[texture(0
     }
 }
 
-kernel void concatenate(texture2d_array<half, access::read> inTexture [[texture(0)]],
-                texture2d_array<half, access::read> inTexture2 [[texture(1)]],
-                texture2d_array<half, access::write> outTexture [[texture(2)]],
-                device float4 &printBuffer [[buffer(0)]],
-                ushort3 gid [[thread_position_in_grid]]
-                ) {
+//kernel void concatenate(texture2d_array<half, access::read> inTexture [[texture(0)]],
+//                texture2d_array<half, access::read> inTexture2 [[texture(1)]],
+//                texture2d_array<half, access::write> outTexture [[texture(2)]],
+//                device float4 &printBuffer [[buffer(0)]],
+//                ushort3 gid [[thread_position_in_grid]]
+//                ) {
+//    if (gid.x >= outTexture.get_width() || gid.y >= outTexture.get_height() || gid.z >= outTexture.get_array_size()) {
+//        return;
+//    }
+//    if (gid.z < inTexture.get_array_size()) {
+//        half4 i = inTexture.read(uint2(gid.x, gid.y), gid.z);
+//        outTexture.write(i, uint2(gid.x, gid.y), gid.z);
+//    } else {
+//        half4 i = inTexture2.read(uint2(gid.x, gid.y), gid.z-inTexture.get_array_size());
+//        outTexture.write(i, uint2(gid.x, gid.y), gid.z);
+//
+//        if (gid.x == 0 && gid.y ==0 && gid.z == 191) {
+////            half4 bbb = half4(0);
+//            //            t.xy = half2(pos);
+//            printBuffer = float4(i);
+//
+//        }
+//    }
+//
+//}
+
+kernel void concatenate(array<texture2d_array<half, access::read>, 4> inTexture [[texture(0)]],
+                        texture2d_array<half, access::write> outTexture [[texture(4)]],
+                        device float4 &printBuffer [[buffer(0)]],
+                        ushort3 gid [[thread_position_in_grid]]
+                        ) {
     if (gid.x >= outTexture.get_width() || gid.y >= outTexture.get_height() || gid.z >= outTexture.get_array_size()) {
         return;
     }
-    if (gid.z < inTexture.get_array_size()) {
-        half4 i = inTexture.read(uint2(gid.x, gid.y), gid.z);
-        outTexture.write(i, uint2(gid.x, gid.y), gid.z);
-    } else {
-        half4 i = inTexture2.read(uint2(gid.x, gid.y), gid.z-inTexture.get_array_size());
-        outTexture.write(i, uint2(gid.x, gid.y), gid.z);
+    half4 i;
+    if (gid.z < inTexture[0].get_array_size()) {
+        i = inTexture[0].read(uint2(gid.x, gid.y), gid.z);
         
-        if (gid.x == 0 && gid.y ==0 && gid.z == 191) {
-//            half4 bbb = half4(0);
-            //            t.xy = half2(pos);
-            printBuffer = float4(i);
-            
-        }
+    } else if (gid.z < inTexture[0].get_array_size() + inTexture[1].get_array_size()) {
+        i = inTexture[1].read(uint2(gid.x, gid.y), gid.z-inTexture[0].get_array_size());
+
+        
+    } else if (gid.z < inTexture[0].get_array_size() + inTexture[1].get_array_size()+inTexture[2].get_array_size()) {
+        i = inTexture[2].read(uint2(gid.x, gid.y), gid.z-inTexture[0].get_array_size()-inTexture[1].get_array_size());
+    } else if (gid.z < inTexture[0].get_array_size() + inTexture[1].get_array_size()+inTexture[2].get_array_size()+inTexture[3].get_array_size()) {
+        i = inTexture[3].read(uint2(gid.x, gid.y), gid.z-inTexture[0].get_array_size()-inTexture[1].get_array_size()-inTexture[2].get_array_size());
+    }
+    outTexture.write(i, uint2(gid.x, gid.y), gid.z);
+
+    if (gid.x == 0 && gid.y ==0 && gid.z == 16) {
+        printBuffer = float4(i);
+        
     }
     
 }

@@ -8,9 +8,9 @@ Running neural network on IOS(version 10.0 or newer) use GPU (support Keras mode
  - No need import any framework just Apple's MetalPerformanceShaders.
 
 ## 2019-01-13 V0.1
- - 支持keras图片分类模型转换,支持keras官方模型： [Mobilenet](https://keras.io/applications/#mobilenet)\ [MobilenetV2](https://keras.io/applications/#mobilenetv2)\ [Xception](https://keras.io/applications/#mobilenetv2)
+ - 支持keras图片分类模型转换,支持keras官方模型： [Mobilenet](https://keras.io/applications/#mobilenet)\ [MobilenetV2](https://keras.io/applications/#mobilenetv2)\ [Xception](https://keras.io/applications/#mobilenetv2)\ [InceptionV3](https://keras.io/applications/#inceptionv3)
  - 支持keras [layer列表](https://github.com/luozhiping/neural_network_on_ios/blob/master/Document/layer_list.markdown)
- - V0.1 support keras imageclassfication model: [Mobilenet](https://keras.io/applications/#mobilenet)\ [MobilenetV2](https://keras.io/applications/#mobilenetv2)\ [Xception](https://keras.io/applications/#mobilenetv2)
+ - V0.1 support keras imageclassfication model: [Mobilenet](https://keras.io/applications/#mobilenet)\ [MobilenetV2](https://keras.io/applications/#mobilenetv2)\ [Xception](https://keras.io/applications/#mobilenetv2)\ [InceptionV3](https://keras.io/applications/#inceptionv3)
  - V0.1 support keras [layer list](https://github.com/luozhiping/neural_network_on_ios/blob/master/Document/layer_list.markdown)
 
 ## 使用说明 Quick Start
@@ -66,12 +66,13 @@ Net.predict(input: inputImage, device: device)  //see example for more detail
     - Keras-2.2.4
     - tensorflow 1.13.0-dev20181205
     - xcode 10.1
+    - iPhoneXR and IOS 12.1.2
 - ToDo
     - Support more keras model and layers
 
 ### 6.Document
 
-- [Document](./Document/README.markdown)
+- [Document](./Document)
 
 ### Reference
 Github: A neural network toolkit for Metal [https://github.com/hollance/Forge](https://github.com/hollance/Forge)
