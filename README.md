@@ -15,8 +15,8 @@ Running neural network on IOS(version 10.0 or newer) use GPU (support Keras mode
 
 ## 使用说明 Quick Start
 
-### 1.打开example （my xcode version: 10.1）Use example
-open and run SimpleMobile.xcodeproj
+### 1.打开example Use example
+open and run SimpleNN.xcworkspace
 
 ![](Document/example.png)
 
