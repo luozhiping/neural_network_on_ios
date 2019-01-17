@@ -1,4 +1,4 @@
-# Neural Network Running On IOS using keras model
+# SimpleNN: Neural Network Running On IOS using keras model
 Running neural network on IOS(version 10.0 or newer) use GPU (support Keras model)
 
 此库为IOS(版本 >= 10.0)上调用MetalPerformanceShaders和Metal API，在GPU上运行神经网络。当前支持转换keras模型
@@ -8,59 +8,20 @@ Running neural network on IOS(version 10.0 or newer) use GPU (support Keras mode
  - No need import any framework just Apple's MetalPerformanceShaders.
 
 ## 2019-01-13 V0.1
- - 支持keras图片分类模型转换,支持keras官方模型： [Mobilenet](https://keras.io/applications/#mobilenet)\ [MobilenetV2](https://keras.io/applications/#mobilenetv2)\ [Xception](https://keras.io/applications/#mobilenetv2)\ [InceptionV3](https://keras.io/applications/#inceptionv3)
+ - 支持keras图片分类模型转换,支持keras官方模型： [Mobilenet](https://keras.io/applications/#mobilenet)\ [MobilenetV2](https://keras.io/applications/#mobilenetv2)\ [Xception](https://keras.io/applications/#xception)\ [InceptionV3](https://keras.io/applications/#inceptionv3)
  - 支持keras [layer列表](https://github.com/luozhiping/neural_network_on_ios/blob/master/Document/layer_list.markdown)
- - V0.1 support keras imageclassfication model: [Mobilenet](https://keras.io/applications/#mobilenet)\ [MobilenetV2](https://keras.io/applications/#mobilenetv2)\ [Xception](https://keras.io/applications/#mobilenetv2)\ [InceptionV3](https://keras.io/applications/#inceptionv3)
- - V0.1 support keras [layer list](https://github.com/luozhiping/neural_network_on_ios/blob/master/Document/layer_list.markdown)
+ - V0.1 support some keras imageclassfication model: [Mobilenet](https://keras.io/applications/#mobilenet)\ [MobilenetV2](https://keras.io/applications/#mobilenetv2)\ [Xception](https://keras.io/applications/#xception)\ [InceptionV3](https://keras.io/applications/#inceptionv3)
+ - V0.1 support some keras [layer list](https://github.com/luozhiping/neural_network_on_ios/blob/master/Document/layer_list.markdown)
 
-## 使用说明 Quick Start
+## Quick Start
+- [Quick Start: Using SimpleNN to do image classification](./Document/image_classification.markdown)
+- [Convert and Using keras model in SimpleNN](./Document/convert_keras_model.markdown)
+- [Convert my own keras model](./Document/convert_my_model.markdown)
+- [SimpleNN: Basic API](./Document/basic_api.markdown)
+- [Support keras layer](./Document/layer_list.markdown)
+- [Support keras model](./Document/model_list.markdown)
 
-### 1.打开example Use example
-open and run SimpleNN.xcworkspace
-
-![](Document/example.png)
-
-### 2.转换keras模型 Convert keras model
-#### 2.1转换官方模型 Convert keras official model
-```shell
-python convert_keras.py --network-path ./network.json --weights-path ./weights.bin --model mobilenet
---network-path 模型结构文件，必须为.json结尾  file extension must be .json
---weights-path 模型weights文件，必须为.bin结尾 file extension must be .bin
---model 可选择mobilnet\mobilenetv2\xception
-```
-
-#### 2.2转换自己训练好的模型 Convert my own model
-``` python
-from convert_weights import *
-network = my_model.to_json()
-network_file = open(args.network_path, 'w')
-network_file.write(network)
-network_file.close() #保存网络结构json文件
-
-weights = convert_weights(my_model)
-weights = array(weights, 'float32')
-weights_file = open(args.weights_path, 'wb')
-weights.tofile(weights_file)
-weights_file.close()  #调用example/python/convert_weights方法，转换weigths
-```
-注：自己训练的keras模型仅支持[layer列表](https://github.com/luozhiping/neural_network_on_ios/blob/master/Document/layer_list.markdown)中支持的layer（layer支持会持续更新）
-
-ps: my own model only support some layer in [layer list](https://github.com/luozhiping/neural_network_on_ios/blob/master/Document/layer_list.markdown)
-### 3.加载模型 load model
-``` swift
-let Net = Model.init(networkFileName: "network", weightFileName: "weights") //加载模型文件network.json weights文件weights.bin .load model file network.json, weights file weights.bin
-Net.printNetwork() //打印模型结构 print model construction
-```
-### 4.预测 do inference
-``` swift
-let inputImage = ImageData(imageFileName: "Floortje", device: device!, fileExtension: "png")
-Net.predict(input: inputImage, device: device)  //see example for more detail
-
-// predict会返回一个[Float],是输出的概率数组
-// predict return [Float], which is Probabilities array
-```
-
-### 5.备注 Some issue
+## Some issue
 - my environment
     - python 3.6.3
     - Keras-2.2.4

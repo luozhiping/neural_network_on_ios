@@ -1,0 +1,6 @@
+Example/SimpleNNTest/SimpleNNTest/keras_inceptionv3.bin
+Example/SimpleNNTest/SimpleNNTest/keras_mobilenetv2.bin
+Example/SimpleNNTest/SimpleNNTest/keras_xception.bin
+Example/SimpleNNTest/SimpleNNTest/official_inceptionv3.json
+Example/SimpleNNTest/SimpleNNTest/official_mobilenetv2.json
+Example/SimpleNNTest/SimpleNNTest/official_xception.json

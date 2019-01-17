@@ -1,8 +1,11 @@
 # SimpleCNN
- SimpleCNN:可在IOS上使用GPU运行神经网络的（支持keras）
+ SimpleCNN: running keras model on ios using gpu
  support os: IOS 10 or newer
 
- - 文档目录 Documents
-    - [layer list](./layer_list.markdown) 支持layer的列表
-    - [CHANGE_LOG](./change_log.markdown) changelog
-    - [model list](./model_list.markdown) 支持model列表
+## Quick Start
+- [Quick Start: Using SimpleNN to do image classification](./image_classification.markdown)
+- [Convert and Using keras model in SimpleNN](./convert_keras_model.markdown)
+- [Convert my own keras model](./convert_my_model.markdown)
+- [SimpleNN: Basic API](./basic_api.markdown)
+- [Support keras layer](./layer_list.markdown)
+- [Support keras model](./model_list.markdown)
