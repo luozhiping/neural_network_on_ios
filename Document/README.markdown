@@ -9,3 +9,7 @@
 - [SimpleNN: Basic API](./basic_api.markdown)
 - [Support keras layer](./layer_list.markdown)
 - [Support keras model](./model_list.markdown)
+
+
+## Other doucments
+- [Change log](./change_log.markdown)

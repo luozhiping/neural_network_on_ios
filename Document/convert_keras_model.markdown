@@ -2,7 +2,7 @@
 
 ### 1.SimpleNN support some keras model
 
-see [Support keras model](./Document/model_list.markdown)
+see [Support keras model](./model_list.markdown)
 
 ### 2.Convert keras model
 

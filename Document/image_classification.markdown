@@ -18,7 +18,7 @@ git clone https://github.com/luozhiping/neural_network_on_ios.git
 ### 5. Inference time
 
 | model name(keras class name)|inference time(iphoneXR 12.1)|model size|
-| :----------| :-----------| :-----------| :-----------|
+| :----------| :-----------| :-----------|
 |[Mobilenet](https://keras.io/applications/#mobilenet)|39ms|17M|
 |[MobilenetV2](https://keras.io/applications/#mobilenetv2)|30ms|14.2M|
 |[Xception](https://keras.io/applications/#xception)|117ms|91.6M|
@@ -29,7 +29,7 @@ git clone https://github.com/luozhiping/neural_network_on_ios.git
 
 1. [Convert another keras model](./convert_keras_model.markdown)
 
-```shell
+``` shell
 python convert_keras.py --network-path ./network.json --weights-path ./weights.bin --model mobilenetv2
 params:
 --network-path network file extension must be .json
