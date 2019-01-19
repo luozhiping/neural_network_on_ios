@@ -34,18 +34,18 @@ class ViewController: UIViewController {
             inputImage = DataWrapper(imageFileName: "Floortje", device: device!)
         }
                         let model2 = Model.init(networkFileName: "official__mobilenet", weightFileName: "keras__mobilenet")
-        //                let model2 = Model.init(networkFileName: "official_mobilenetv2", weightFileName: "keras_mobilenetv2")
+//                        let model2 = Model.init(networkFileName: "official_mobilenetv2", weightFileName: "keras_mobilenetv2")
 //        let model2 = Model.init(networkFileName: "official_xception", weightFileName: "keras_xception")
         //        let model2 = Model.init(networkFileName: "keras_yolov3", weightFileName: "keras_yolov3")
         //        let model2 = Model.init(networkFileName: "keras_yolov3_tiny", weightFileName: "keras_yolov3_tiny")
-        //        let model2 = Model.init(networkFileName: "official_inceptionv3", weightFileName: "keras_inceptionv3")
+//                let model2 = Model.init(networkFileName: "official_inceptionv3", weightFileName: "keras_inceptionv3")
         
         model2.printNetwork()
         //        return
         //        let inputImage2 = ImageData(imageFileName: "Floortje", device: device!)
         var startTime = CFAbsoluteTimeGetCurrent()
-        var output = [Float]()
-        var abc = 2
+        var output = [Output]()
+        var abc = 1
         for i in 0..<abc {
             output = model2.predict(input: inputImage, device: device!)
         }
@@ -78,7 +78,7 @@ class ViewController: UIViewController {
             
             //            let outputImage2 = output as! ImageData
             //            let a2 = outputImage2.image!
-            let results2 = output
+            let results2 = output[0].result
             
             //            print(a2.width, a2.height, results2.count)
             //

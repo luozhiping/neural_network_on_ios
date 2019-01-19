@@ -258,10 +258,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
      */
     func runNetwork(){
         let image = ImageData(image: MPSImage(texture: sourceTexture!, featureChannels: 3))
-        let results = Net.predict(input: image, device: device!)
+        let outputs = Net.predict(input: image, device: device!)
         //        let outputImage = output as! ImageData
         //        let results = outputImage.image!.toFloatArray()
         var indexedProbabilities = [(Float, Int)]()
+        let results = outputs[0].result
         for i in 0..<results.count{
             indexedProbabilities.append((results[i], i))
             if results[i] > 0.1 {

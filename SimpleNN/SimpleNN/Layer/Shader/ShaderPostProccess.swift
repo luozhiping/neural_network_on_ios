@@ -343,7 +343,12 @@ public class ShaderConcatenate: ShaderLayer {
     }
     
     override public func createNetWork(device: MTLDevice) {
-        pipeline = initFunction(device: device, name: "concatenate")
+        if device.supportsFeatureSet(MTLFeatureSet.iOS_GPUFamily3_v2) {
+            pipeline = initFunction(device: device, name: "concatenate")
+        } else {
+            pipeline = initFunction(device: device, name: "concatenate_family2")
+        }
+        
     }
     
     override public func encode(commandBuffer: MTLCommandBuffer, sourceData: DataWrapper, destinationData: DataWrapper) {
@@ -356,7 +361,13 @@ public class ShaderConcatenate: ShaderLayer {
                 
                 encoder.setComputePipelineState(pipeline)
 //                encoder.setTexture(addLayer1!.getOutputData()!.getTexture(), index: 0)
-                encoder.setTextures(textures, range: 0..<textures.count)
+                if device.supportsFeatureSet(MTLFeatureSet.iOS_GPUFamily3_v2) {
+                    encoder.setTextures(textures, range: 0..<textures.count)
+                } else {
+                    for (index, texture) in textures.enumerated() {
+                        encoder.setTexture(texture, index: index)
+                    }
+                }
                 encoder.setTexture(destinationData.getTexture(), index: 4)
                 var resultdata = [Float](repeating: 0, count: 1)
                 let outVectorBuffer = device.makeBuffer(bytes: &resultdata, length: 16, options: MTLResourceOptions.cpuCacheModeWriteCombined)

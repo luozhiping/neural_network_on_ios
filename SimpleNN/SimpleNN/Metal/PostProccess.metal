@@ -277,31 +277,40 @@ kernel void upsampling(texture2d_array<half, access::read> inTexture [[texture(0
     }
 }
 
-//kernel void concatenate(texture2d_array<half, access::read> inTexture [[texture(0)]],
-//                texture2d_array<half, access::read> inTexture2 [[texture(1)]],
-//                texture2d_array<half, access::write> outTexture [[texture(2)]],
-//                device float4 &printBuffer [[buffer(0)]],
-//                ushort3 gid [[thread_position_in_grid]]
-//                ) {
-//    if (gid.x >= outTexture.get_width() || gid.y >= outTexture.get_height() || gid.z >= outTexture.get_array_size()) {
-//        return;
-//    }
-//    if (gid.z < inTexture.get_array_size()) {
-//        half4 i = inTexture.read(uint2(gid.x, gid.y), gid.z);
-//        outTexture.write(i, uint2(gid.x, gid.y), gid.z);
-//    } else {
-//        half4 i = inTexture2.read(uint2(gid.x, gid.y), gid.z-inTexture.get_array_size());
-//        outTexture.write(i, uint2(gid.x, gid.y), gid.z);
-//
-//        if (gid.x == 0 && gid.y ==0 && gid.z == 191) {
-////            half4 bbb = half4(0);
-//            //            t.xy = half2(pos);
-//            printBuffer = float4(i);
-//
-//        }
-//    }
-//
-//}
+kernel void concatenate_family2(texture2d_array<half, access::read> inTexture0 [[texture(0)]],
+                                texture2d_array<half, access::read> inTexture1 [[texture(1)]],
+                                texture2d_array<half, access::read> inTexture2 [[texture(2)]],
+                                texture2d_array<half, access::read> inTexture3 [[texture(3)]],
+                        texture2d_array<half, access::write> outTexture [[texture(4)]],
+                        device float4 &printBuffer [[buffer(0)]],
+                        ushort3 gid [[thread_position_in_grid]]
+                        ) {
+    if (gid.x >= outTexture.get_width() || gid.y >= outTexture.get_height() || gid.z >= outTexture.get_array_size()) {
+        return;
+    }
+    half4 i;
+    if (gid.z < inTexture0.get_array_size()) {
+        i = inTexture0.read(uint2(gid.x, gid.y), gid.z);
+
+    } else if (gid.z < inTexture0.get_array_size() + inTexture1.get_array_size()) {
+        i = inTexture1.read(uint2(gid.x, gid.y), gid.z-inTexture0.get_array_size());
+
+
+    } else if (gid.z < inTexture0.get_array_size() + inTexture1.get_array_size()+inTexture2.get_array_size()) {
+        i = inTexture2.read(uint2(gid.x, gid.y), gid.z-inTexture0.get_array_size()-inTexture1.get_array_size());
+    } else if (gid.z < inTexture0.get_array_size() + inTexture1.get_array_size()+inTexture2.get_array_size()+inTexture3.get_array_size()) {
+        i = inTexture3.read(uint2(gid.x, gid.y), gid.z-inTexture0.get_array_size()-inTexture1.get_array_size()-inTexture2.get_array_size());
+    }
+    outTexture.write(i, uint2(gid.x, gid.y), gid.z);
+    
+    if (gid.x == 0 && gid.y ==0 && gid.z == 16) {
+        float4 bbb = float4(0);
+        bbb.x = inTexture0.get_array_size();
+        printBuffer = float4(bbb);
+        
+    }
+    
+}
 
 kernel void concatenate(array<texture2d_array<half, access::read>, 4> inTexture [[texture(0)]],
                         texture2d_array<half, access::write> outTexture [[texture(4)]],
@@ -314,11 +323,11 @@ kernel void concatenate(array<texture2d_array<half, access::read>, 4> inTexture 
     half4 i;
     if (gid.z < inTexture[0].get_array_size()) {
         i = inTexture[0].read(uint2(gid.x, gid.y), gid.z);
-        
+
     } else if (gid.z < inTexture[0].get_array_size() + inTexture[1].get_array_size()) {
         i = inTexture[1].read(uint2(gid.x, gid.y), gid.z-inTexture[0].get_array_size());
 
-        
+
     } else if (gid.z < inTexture[0].get_array_size() + inTexture[1].get_array_size()+inTexture[2].get_array_size()) {
         i = inTexture[2].read(uint2(gid.x, gid.y), gid.z-inTexture[0].get_array_size()-inTexture[1].get_array_size());
     } else if (gid.z < inTexture[0].get_array_size() + inTexture[1].get_array_size()+inTexture[2].get_array_size()+inTexture[3].get_array_size()) {
@@ -328,7 +337,18 @@ kernel void concatenate(array<texture2d_array<half, access::read>, 4> inTexture 
 
     if (gid.x == 0 && gid.y ==0 && gid.z == 16) {
         printBuffer = float4(i);
-        
+
     }
-    
+
 }
+    
+    
+//kernel void output(<texture2d_array<half, access::read> inTexture [[texture(0)]],
+//                        texture2d_array<half, access::write> outTexture [[texture(1)]],
+//                        ushort3 gid [[thread_position_in_grid]]
+//                        ) {
+//    if (gid.x >= outTexture.get_width() || gid.y >= outTexture.get_height() || gid.z >= outTexture.get_array_size()) {
+//        return;
+//    }
+////    ushort width = inTexture
+//}

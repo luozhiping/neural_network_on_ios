@@ -61,11 +61,34 @@ public class Model {
             for index in 0..<all_layers.count {
                 addLayer(layer: all_layers[index] as! NSDictionary)
                 
-                if index == 310 {
+                if index == 40 {
 //                    break
                 }
             }
-            layers.tailLayer!.forceNotTemp = true
+            
+            let outputLayers = config["output_layers"] as! NSArray
+            for output in outputLayers {
+                if let output = output as? NSArray {
+                    if let output = output[0] as? String {
+                        // output layer name
+                        var finded = false
+                        for (_, layer) in layers.layers.enumerated().reversed() {
+                            if layer.name == output {
+                                layers.addOutput(layer: layer)
+                                finded = true
+                            }
+                        }
+                    }
+                }
+            }
+            if layers.outputs.count == 0 {
+                layers.addOutput(layer: layers.layers[layers.layers.count - 1])
+            }
+            for output in layers.outputs {
+                print(output.name)
+            }
+            
+//            layers.tailLayer!.forceNotTemp = true
             
             
         } catch {
@@ -155,7 +178,7 @@ public class Model {
         return pointer
     }
     
-    public func predict(input: DataWrapper, device: MTLDevice) -> [Float] {
+    public func predict(input: DataWrapper, device: MTLDevice) -> [Output] {
         return layers.predict(input: input, device: device)
     }
 }

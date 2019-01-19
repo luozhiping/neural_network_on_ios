@@ -180,10 +180,10 @@ public class ShaderDepthwiseConvolution: ShaderLayer {
         var p = pointer
         let weight = p
         p += self.getWeightSize()
-        print(name, "weightsize:", getWeightSize(), weight[0], weight[1], weight[2])
+//        print(name, "weightsize:", getWeightSize(), weight[0], weight[1], weight[2])
         let bias = p
         p += self.getBiasSize()
-        print(name, "biassize:", getBiasSize(), bias[0])
+//        print(name, "biassize:", getBiasSize(), bias[0])
         self.weight = Weights(weightsPointer: weight, biasPointer: bias)
         //        return p
         

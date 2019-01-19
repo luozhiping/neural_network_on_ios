@@ -54,7 +54,13 @@ public class ImageInput: Input {
         let inputData = sourceData as! ImageData
         let outputData = destinationData as! ImageData
         if inputData.image!.width != outputData.image!.width || inputData.image!.height != outputData.image!.height {
-            lanczos.encode(commandBuffer: commandBuffer, sourceImage: inputData.image!, destinationImage: outputData.image!)
+//            lanczos.encode(commandBuffer: commandBuffer, sourceImage: inputData.image!, destinationImage: outputData.image!)
+            lanczos.encode(commandBuffer: commandBuffer, sourceTexture: inputData.getTexture()!, destinationTexture: outputData.getTexture()!)
+            
+            if let image = inputData.image as? MPSTemporaryImage {
+                image.readCount -= 1
+            }
+            
         } else {
             if let image = outputData.image as? MPSTemporaryImage {
                 image.readCount -= 1

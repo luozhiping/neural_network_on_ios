@@ -13,6 +13,7 @@ public class LayerTree {
     var headLayer: Layer?
     var tailLayer: Layer?
     var layers: [Layer] = []
+    var outputs: [Layer] = []
     public init() {
     }
     
@@ -76,7 +77,7 @@ public class LayerTree {
                             if l.name == boundName {
                                 concate.append(l)
                                 l.tmpImageCount += 1
-                                print(l.name)
+//                                print(l.name)
                             }
                         }
                     }
@@ -87,6 +88,20 @@ public class LayerTree {
                 }
             }
         }
+    }
+    
+    public func addOutput(layer: Layer) {
+        if layer.childrenCount() > 0 {
+            for l in layer.childrenLayers {
+                if l is Softmax {
+                    self.outputs.append(l)
+                    l.forceNotTemp = true
+                    return
+                }
+            }
+        }
+        self.outputs.append(layer)
+        layer.forceNotTemp = true
     }
     
     public func layerCount() -> Int {
@@ -127,10 +142,11 @@ public class LayerTree {
         return headLayer!.getAllWeightSize()
     }
     
-    public func predict(input: DataWrapper, device: MTLDevice) -> [Float] {
+    public func predict(input: DataWrapper, device: MTLDevice) -> [Output] {
 //        print("start predict......")
         let commandQueue = device.makeCommandQueue()
         var output: DataWrapper?
+        var outputs = [Output]()
 
         autoreleasepool {
             let commandBuffer = commandQueue!.makeCommandBuffer()
@@ -149,17 +165,24 @@ public class LayerTree {
                 
             }
             output = headLayer!.predict(device: device, commandBuffer: commandBuffer!, sourceData: input, destinationData: headLayer!.getOutputData(commandBuffer: commandBuffer!, device: device))
-            output = layers[layers.count-1].getOutputData()
+            
+            
+            
+//            output = layers[layers.count-1].getOutputData()
 //            print("get layer output:\(layers[layers.count-1].name)")
             commandBuffer!.commit()
             commandBuffer!.waitUntilCompleted()
+            
+        }
+        for layer in self.outputs {
+            outputs.append(Output(layer: layer))
         }
 //
 //
-        let outputImage = output as! ImageData
-        let results = outputImage.image!.toFloatArray()
+//        let outputImage = output as! ImageData
+//        let results = outputImage.image!.toFloatArray()
         
 //        print(outputImage.image!.width, outputImage.image!.height, results.count)
-        return results
+        return outputs
     }
 }

@@ -245,10 +245,10 @@ public class Layer {
         var p = pointer
         let weight = p
         p += self.getWeightSize()
-        print(name, "weightsize:", getWeightSize(), weight[0], weight[1], weight[2])
+//        print(name, "weightsize:", getWeightSize(), weight[0], weight[1], weight[2])
         let bias = p
         p += self.getBiasSize()
-        print(name, "biassize:", getBiasSize(), bias[0])
+//        print(name, "biassize:", getBiasSize(), bias[0])
         self.weight = Weights(weightsPointer: weight, biasPointer: bias)
         return p
     }
@@ -306,8 +306,8 @@ func LayerFactory(layer: NSDictionary, device: MTLDevice, layers: LayerTree) -> 
             break
         case "DepthwiseConv2D":
             if #available(iOS 11, *) {
-                l.append(ShaderDepthwiseConvolution(device:device, kernel: (kernel_size![0] as! Int, kernel_size![1] as! Int), stride: (strides![0] as! Int, strides![1] as! Int), padding:paddingType, activation: activation!,  name: name == nil ? "ShaderDepthwiseConvolution": name!,useBias: use_bias!))
-//                l.append(DepthwiseConvolution(kernel: (kernel_size![0] as! Int, kernel_size![1] as! Int), stride: (strides![0] as! Int, strides![1] as! Int), activation: activation!, padding: paddingType, useBias: use_bias!, name: name == nil ? "DepthwiseConvolution": name!))
+//                l.append(ShaderDepthwiseConvolution(device:device, kernel: (kernel_size![0] as! Int, kernel_size![1] as! Int), stride: (strides![0] as! Int, strides![1] as! Int), padding:paddingType, activation: activation!,  name: name == nil ? "ShaderDepthwiseConvolution": name!,useBias: use_bias!))
+                l.append(DepthwiseConvolution(kernel: (kernel_size![0] as! Int, kernel_size![1] as! Int), stride: (strides![0] as! Int, strides![1] as! Int), activation: activation!, padding: paddingType, useBias: use_bias!, name: name == nil ? "DepthwiseConvolution": name!))
             } else {
                 l.append(ShaderDepthwiseConvolution(device:device, kernel: (kernel_size![0] as! Int, kernel_size![1] as! Int), stride: (strides![0] as! Int, strides![1] as! Int), padding:paddingType, activation: activation!,  name: name == nil ? "ShaderDepthwiseConvolution": name!,useBias: use_bias!))
             }
