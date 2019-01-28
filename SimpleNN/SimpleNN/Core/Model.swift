@@ -61,7 +61,7 @@ public class Model {
             for index in 0..<all_layers.count {
                 addLayer(layer: all_layers[index] as! NSDictionary)
                 
-                if index == 40 {
+                if index == 42 {
 //                    break
                 }
             }
@@ -179,7 +179,12 @@ public class Model {
     }
     
     public func predict(input: DataWrapper, device: MTLDevice) -> [Output] {
-        return layers.predict(input: input, device: device)
+        let output = layers.predict(input: input, device: device)
+        var outputs = [Output]()
+        for layer in output {
+            outputs.append(Output(layer: layer))
+        }
+        return outputs
     }
 }
 

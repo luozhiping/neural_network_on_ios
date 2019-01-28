@@ -17,6 +17,7 @@
 		11512DA021EF5E7D003D28B0 /* SimpleNN.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 11512D7F21EF5B20003D28B0 /* SimpleNN.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		11512E0121EF6626003D28B0 /* keras__mobilenet.bin in Resources */ = {isa = PBXBuildFile; fileRef = 11512DFF21EF6626003D28B0 /* keras__mobilenet.bin */; };
 		11512E0221EF6626003D28B0 /* official__mobilenet.json in Resources */ = {isa = PBXBuildFile; fileRef = 11512E0021EF6626003D28B0 /* official__mobilenet.json */; };
+		1172A52B21F9BF98006F0BD4 /* dog416.png in Resources */ = {isa = PBXBuildFile; fileRef = 1172A52A21F9BF98006F0BD4 /* dog416.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,6 +46,7 @@
 		11512D7F21EF5B20003D28B0 /* SimpleNN.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SimpleNN.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		11512DFF21EF6626003D28B0 /* keras__mobilenet.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = keras__mobilenet.bin; path = SimpleNNTest/keras__mobilenet.bin; sourceTree = SOURCE_ROOT; };
 		11512E0021EF6626003D28B0 /* official__mobilenet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = official__mobilenet.json; path = SimpleNNTest/official__mobilenet.json; sourceTree = SOURCE_ROOT; };
+		1172A52A21F9BF98006F0BD4 /* dog416.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dog416.png; path = ../../ObjectDetection/ObjectDetection/dog416.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 		11512D5F21EF5A4B003D28B0 /* SimpleNNTest */ = {
 			isa = PBXGroup;
 			children = (
+				1172A52A21F9BF98006F0BD4 /* dog416.png */,
 				113FE02D21EF673A0030CD12 /* cat299.png */,
 				11512DFF21EF6626003D28B0 /* keras__mobilenet.bin */,
 				11512E0021EF6626003D28B0 /* official__mobilenet.json */,
@@ -160,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11512E0221EF6626003D28B0 /* official__mobilenet.json in Resources */,
+				1172A52B21F9BF98006F0BD4 /* dog416.png in Resources */,
 				113FE02E21EF673A0030CD12 /* cat299.png in Resources */,
 				11512D6B21EF5A4B003D28B0 /* LaunchScreen.storyboard in Resources */,
 				11512D6821EF5A4B003D28B0 /* Assets.xcassets in Resources */,

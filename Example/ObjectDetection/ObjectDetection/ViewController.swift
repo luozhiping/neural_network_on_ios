@@ -19,7 +19,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // Outlets to label and view
     @IBOutlet weak var predictLabel: UILabel!
     @IBOutlet weak var predictView: UIImageView!
-    @IBOutlet weak var predictTime: UIButton!
     
     // some properties used to control the app and store appropriate values
     var Net: Model! = nil
@@ -32,7 +31,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var sourceTexture : MTLTexture? = nil
     var camRan = false
     var labels = [String](repeating: "", count: 1000)
-    
+    var URL: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,17 +53,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         textureLoader = MTKTextureLoader(device: device!)
         
         // Load the appropriate Network
-        Net = Model.init(networkFileName: "mobilenet", weightFileName: "mobilenet")
-        //        Net = Model.init(networkFileName: "official_mobilenetv2", weightFileName: "keras_mobilenetv2")
-        //        Net = Model.init(networkFileName: "official_xception", weightFileName: "keras_xception")
-        //        Net = Model.init(networkFileName: "official_inceptionv3", weightFileName: "keras_inceptionv3")
-        //        Net = Model.init(networkFileName: "network", weightFileName: "weights")
+        Net = YoloModel.init(networkFileName: "yolov3", weightFileName: "yolov3")
         Net.printNetwork()
         // we use this CIContext as one of the steps to get a MTLTexture
         ciContext = CIContext.init(mtlDevice: device)
         
-        let name = "cat"
-        let URL = Bundle.main.url(forResource:name, withExtension: "png")
+        let name = "dog"
+        URL = Bundle.main.url(forResource:name, withExtension: "jpg")
         do{
             // display the image in UIImage View
             predictView.image = try UIImage(data: NSData(contentsOf: URL!) as Data)!
@@ -81,6 +76,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 }
             }
         }
+        
+        fetchImage()
     }
     private func lines(filename: String) -> [String] {
         do {
@@ -103,8 +100,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         // get taken picture as UIImage
-        let uiImg = info[.originalImage] as! UIImage
-        
+        var uiImg = info[.originalImage] as! UIImage
+        uiImg = uiImg.fixOrientation()
+//        print(uiImg.imageOrientation.rawValue)
         // display the image in UIImage View
         predictView.image = uiImg
         
@@ -112,7 +110,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         var cgImg = uiImg.cgImage
         
         // check to see if cgImg is valid if nil, UIImg is CIImage based and we need to go through that
-        // this shouldn't be the case with our example
+        // this shouldn"t be the case with our example
         if(cgImg == nil){
             // our underlying format was CIImage
             var ciImg = uiImg.ciImage
@@ -133,6 +131,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             fatalError("Unexpected error ocurred: \(error.localizedDescription).")
         }
         
+        
         // run inference neural network to get predictions and display them
         runNetwork()
         
@@ -152,78 +151,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         present(picker, animated: true, completion: nil)
     }
     
-    @IBAction func tap(_ sender: UITapGestureRecognizer) {
-        
-        // if camera was used, we must display the appropriate image in predictView
-        if(camRan){
-            camRan = false
-            do{
-                let name = "cat"
-                let URL = Bundle.main.url(forResource:name, withExtension: "png")
-                // display the image in UIImage View
-                predictView.image = try UIImage(data: NSData(contentsOf: URL!) as Data)!
-            }
-            catch{
-                NSLog("invalid URL")
-            }
-        }
-        
-        // run the neural network to get predictions
-        fetchImage()
-    }
-    
-    
-    @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
-        
-        // image is changing, hide predictions of previous layer
-        predictLabel.isHidden = true
-        
-        // get the next image
-        imageNum = (imageNum + 1) % total
-        
-        // get appropriate image name and path
-        let name = "cat"
-        let URL = Bundle.main.url(forResource:name, withExtension: "png")
-        do{
-            // display the image in UIImage View
-            predictView.image = try UIImage(data: NSData(contentsOf: URL!) as Data)!
-        }
-        catch{
-            NSLog("invalid URL")
-        }
-        
-        
-        
-    }
-    
-    @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
-        
-        // image is changing, hide predictions of previous layer
-        predictLabel.isHidden = true
-        
-        // get the previous image
-        if((imageNum - 1) >= 0){
-            imageNum = (imageNum - 1) % total
-        }
-        else{
-            imageNum = total - 1
-        }
-        
-        // get appropriate image name and path
-        let name = "cat"
-        let URL = Bundle.main.url(forResource:name, withExtension: "png")
-        do{
-            // display the image in UIImage View
-            predictView.image = try UIImage(data: NSData(contentsOf: URL!) as Data)!
-        }
-        catch{
-            NSLog("invalid URL")
-        }
-        
-        
-    }
-    
-    
     /**
      This function is used to fetch the appropriate image and store it in a MTLTexture
      so we can run our inference network on it
@@ -235,11 +162,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func fetchImage(){
         
         // get appropriate image name and path to load it into a metalTexture
-        let name = "cat"
-        let URL = Bundle.main.url(forResource:name, withExtension: "png")
         
         do {
-            sourceTexture = try textureLoader.newTexture(URL: URL!, options: [:])
+//            sourceTexture = try textureLoader.newTexture(URL: URL!, options: [:])
+            sourceTexture = try! textureLoader.newTexture(URL: URL!, options: [
+                MTKTextureLoader.Option.SRGB : NSNumber(value: false)
+                ])
         }
         catch let error as NSError {
             fatalError("Unexpected error ocurred: \(error.localizedDescription).")
@@ -249,7 +177,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         runNetwork()
         
     }
-    
+    let label = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat", "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella", "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite", "baseball bat", "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup", "fork", "knife", "spoon", "bowl", "banana", "apple", "sandwich", "orange", "broccoli", "carrot", "hot dog", "pizza", "donut", "cake", "chair", "sofa", "pottedplant", "bed", "diningtable", "toilet", "tvmonitor", "laptop", "mouse", "remote", "keyboard", "cell phone", "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors", "teddy bear", "hair drier", "toothbrush"]
+
     /**
      This function gets a commanBuffer and encodes layers in it. It follows that by commiting the commandBuffer and getting labels
      
@@ -258,37 +187,86 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
      Void
      */
     func runNetwork(){
+//        let image = ImageData(imageFileName: "dog416", device: device)
         let image = ImageData(image: MPSImage(texture: sourceTexture!, featureChannels: 3))
-        let outputs = Net.predict(input: image, device: device!)
-        //        let outputImage = output as! ImageData
-        //        let results = outputImage.image!.toFloatArray()
-        var indexedProbabilities = [(Float, Int)]()
-        let results = outputs[0].result
-        for i in 0..<results.count{
-            indexedProbabilities.append((results[i], i))
-            if results[i] > 0.1 {
-                //                print(results[i], i)
-            }
-        }
-        indexedProbabilities.sort { (a: (prob: Float, _: Int), b: (prob: Float, _: Int)) -> Bool in
-            return a.prob > b.prob
-        }
-        var returnString = ""
-        var j = 0
-        var i = 0
-        while( j < 5) {
-            let (prob, index) = indexedProbabilities[i]
-            // labels at 0 and 1001 to 1008 are invalid (no labels were provided for these indices) so we ignore these
-            if((index < 1001) && (index > 0)){
-                returnString = returnString + String(format: "%3.2f", prob * 100) + "%\n" + labels[index] + "\n\n\n"
-                j = j + 1
-            }
-            i = i + 1
-        }
-        print(returnString)
-        predictLabel.text = returnString
-        predictLabel.isHidden = false
         
+        let startTime = CFAbsoluteTimeGetCurrent()
+        let outputs = Net.predict(input: image, device: device!)
+        let endTime = CFAbsoluteTimeGetCurrent()
+        let cost1 = (endTime - startTime)*1000
+        print("cost time:", cost1)
+        // draw rect
+        if let sublayers = predictView.layer.sublayers {
+            for sub in sublayers {
+                sub.removeFromSuperlayer()
+            }
+        }
+        for output in outputs {
+            if let output = output as? YoloOuput {
+                for box in output.boxes {
+                    print("box:", box.rect, box.confidenceInClass, box.detectedClass, label[box.detectedClass])
+                    let shapeLayer = CAShapeLayer()
+                    shapeLayer.fillColor = UIColor.clear.cgColor
+                    shapeLayer.lineWidth = 2
+                    predictView.layer.addSublayer(shapeLayer)
+                    CATransaction.setDisableActions(true)
+                    let color: UIColor = .random
+                    var sRect: CGRect
+                    if predictView.image!.size.width > predictView.image!.size.height {
+                        let imgSW = predictView.image!.size.width / 416
+                        let scale: CGFloat = predictView.frame.size.width/416
+                        var height = predictView.image!.size.height * (predictView.frame.size.width / predictView.image!.size.width)
+
+                        let scaleh: CGFloat = height/416
+                        
+                        height = (predictView.frame.size.height - height)/2
+                        sRect = CGRect(x: box.rect.minX*scale, y: box.rect.minY*scaleh+height, width: box.rect.width*scale, height: box.rect.height*scaleh
+                        )
+                    } else {
+                        let imgSH = predictView.image!.size.height / 416
+                        let scale: CGFloat = predictView.frame.size.height/416
+                        var width = predictView.image!.size.width * (predictView.frame.size.height / predictView.image!.size.height)
+
+                        let scalew: CGFloat = width/416
+                        
+                        width = (predictView.frame.size.width - width)/2
+                        sRect = CGRect(x: box.rect.minX*scalew+width, y: box.rect.minY*scale, width: box.rect.width*scalew, height: box.rect.height*scale
+                        )
+                    }
+                    
+                    let path = UIBezierPath(rect: sRect)
+                    shapeLayer.path = path.cgPath
+                    shapeLayer.strokeColor = color.cgColor
+                    
+                    
+                    let textLayer = CATextLayer()
+                    textLayer.foregroundColor = color.cgColor
+                    textLayer.contentsScale = UIScreen.main.scale
+                    textLayer.fontSize = 16
+                    textLayer.font = UIFont(name: "Avenir", size: textLayer.fontSize)
+                    textLayer.alignmentMode = CATextLayerAlignmentMode.center
+                    predictView.layer.addSublayer(textLayer)
+
+                    let str = label[box.detectedClass] + String(format: " %.2f", box.confidenceInClass)
+                    textLayer.string = str
+                    textLayer.backgroundColor = UIColor.white.cgColor
+                    textLayer.isHidden = false
+                    
+                    let attributes = [
+                        NSAttributedString.Key.font: textLayer.font as Any
+                    ]
+                    
+                    let textRect = str.boundingRect(with: CGSize(width: 400, height: 100),
+                                                      options: .truncatesLastVisibleLine,
+                                                      attributes: attributes, context: nil)
+                    let textSize = CGSize(width: textRect.width + 12, height: textRect.height)
+                    let textOrigin = CGPoint(x: sRect.origin.x - 2, y: sRect.origin.y - textSize.height)
+                    textLayer.frame = CGRect(origin: textOrigin, size: textSize)
+                }
+            }
+        }
+        
+        print(predictView.frame.size.width, predictView.image!.size.width)
     }
     
     

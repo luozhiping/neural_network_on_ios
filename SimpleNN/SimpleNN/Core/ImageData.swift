@@ -99,7 +99,7 @@ public class Output {
     public var result: [Float]
     public init(layer: Layer) {
         let output = layer.getOutputData() as! ImageData
-        print("\(layer.name):(\(output.image!.width), \(output.image!.height), \(output.image!.featureChannels*4))")
+        print("\(layer.name):(\(output.image!.width), \(output.image!.height), \(output.image!.featureChannels))")
         if output.image!.width == 1 && output.image!.height == 1 {
             result = output.image!.toFloatArray()
         } else {
@@ -107,5 +107,9 @@ public class Output {
 
 //            result = [Float]()
         }
+    }
+    
+    public init() {
+        result = [Float]()
     }
 }

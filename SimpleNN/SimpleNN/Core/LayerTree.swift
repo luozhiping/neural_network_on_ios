@@ -142,7 +142,7 @@ public class LayerTree {
         return headLayer!.getAllWeightSize()
     }
     
-    public func predict(input: DataWrapper, device: MTLDevice) -> [Output] {
+    public func predict(input: DataWrapper, device: MTLDevice) -> [Layer] {
 //        print("start predict......")
         let commandQueue = device.makeCommandQueue()
         var output: DataWrapper?
@@ -174,15 +174,14 @@ public class LayerTree {
             commandBuffer!.waitUntilCompleted()
             
         }
-        for layer in self.outputs {
-            outputs.append(Output(layer: layer))
-        }
+        
 //
 //
 //        let outputImage = output as! ImageData
 //        let results = outputImage.image!.toFloatArray()
         
 //        print(outputImage.image!.width, outputImage.image!.height, results.count)
-        return outputs
+//        return outputs
+        return self.outputs
     }
 }

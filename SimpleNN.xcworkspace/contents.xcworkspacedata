@@ -8,6 +8,9 @@
       location = "group:Example/ImageClassfication/ImageClassfication.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:Example/ObjectDetection/ObjectDetection.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Example/SimpleNNTest/SimpleNNTest.xcodeproj">
    </FileRef>
 </Workspace>

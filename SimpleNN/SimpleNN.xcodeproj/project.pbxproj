@@ -32,6 +32,7 @@
 		11512DED21EF6437003D28B0 /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11512DEC21EF6437003D28B0 /* MetalPerformanceShaders.framework */; };
 		11512DEF21EF6441003D28B0 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11512DEE21EF6441003D28B0 /* MetalKit.framework */; };
 		11512DF121EF6446003D28B0 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11512DF021EF6446003D28B0 /* Metal.framework */; };
+		1172A52921F89051006F0BD4 /* YoloTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1172A52821F89051006F0BD4 /* YoloTask.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		11512DEC21EF6437003D28B0 /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		11512DEE21EF6441003D28B0 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
 		11512DF021EF6446003D28B0 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		1172A52821F89051006F0BD4 /* YoloTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoloTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,8 +140,9 @@
 				113FE02F21EF67CC0030CD12 /* Core */,
 				11512DD021EF634E003D28B0 /* Tools */,
 				11512DC521EF6340003D28B0 /* Metal */,
-				11512D8F21EF5E43003D28B0 /* SimpleNN.h */,
+				1172A52721F89022006F0BD4 /* Task */,
 				11512D9021EF5E43003D28B0 /* Info.plist */,
+				11512D8F21EF5E43003D28B0 /* SimpleNN.h */,
 			);
 			path = SimpleNN;
 			sourceTree = "<group>";
@@ -173,6 +176,14 @@
 				11512DEC21EF6437003D28B0 /* MetalPerformanceShaders.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1172A52721F89022006F0BD4 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				1172A52821F89051006F0BD4 /* YoloTask.swift */,
+			);
+			path = Task;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,6 +286,7 @@
 				11512DCF21EF6347003D28B0 /* Preproccess.metal in Sources */,
 				11512DCC21EF6347003D28B0 /* MetalTools.swift in Sources */,
 				113FE04121EF67E40030CD12 /* Pooling.swift in Sources */,
+				1172A52921F89051006F0BD4 /* YoloTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

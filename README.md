@@ -39,3 +39,4 @@ Running neural network on IOS(version 10.0 or newer) use GPU (support Keras mode
 ## Reference
 - Github: A neural network toolkit for Metal [https://github.com/hollance/Forge](https://github.com/hollance/Forge)
 - Keras [https://keras.io/models/about-keras-models/](https://keras.io/models/about-keras-models/)
+- Yolov3 [https://github.com/qqwweee/keras-yolo3](https://github.com/qqwweee/keras-yolo3)
