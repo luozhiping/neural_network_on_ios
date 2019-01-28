@@ -19,14 +19,15 @@ def convert_weights(model):
                 weights.extend(weight[1])
         elif isinstance(layer, Conv2D):
             weight = layer.get_weights()
-            print(weight[0].shape)
+            # print(weight[0].shape)
             # if index == 90:
-            #     print(weight[0].transpose(3,0,1,2).reshape(-1)[0:4])
+            # print(weight[0].transpose(3,0,1,2).reshape(-1)[0:4])
             weights.extend(weight[0].transpose(3,0,1,2).reshape(-1))
             if layer.use_bias:
                 weights.extend(weight[1])
         elif isinstance(layer, BatchNormalization):
             weight = layer.get_weights()
+            # print(len(weight))
             if layer.scale:
                 weights.extend(weight[0])
                 weights.extend(weight[1])
@@ -37,7 +38,7 @@ def convert_weights(model):
                 weights.extend(weight[0])
                 weights.extend(weight[1])
                 weights.extend(weight[2])
-            # print("BatchNormalization:", weight[0][0:8],weight[1][0:8],weight[2][0:8],weight[3][:8])
+            # print("BatchNormalization:", weight[0][0:8],weight[1][0:8],weight[2][0:8])
         elif isinstance(layer, Dense):
             weight = layer.get_weights()
             # print(weight[1][:4])
@@ -49,6 +50,4 @@ def convert_weights(model):
             # print("SeparableConv2D:", weight[1].shape)
             weights.extend(weight[0].transpose(2, 3, 0, 1).reshape(-1))
             weights.extend(weight[1].transpose(3, 0, 1, 2).reshape(-1))
-        
-
     return weights
