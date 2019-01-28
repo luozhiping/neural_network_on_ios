@@ -31,8 +31,6 @@ Running neural network on IOS(version 10.0 or newer) use GPU (support Keras mode
 
 ## Recently Change ([CHANGE LOG](./Document/change_log.markdown))
 ### 2019-01-13 V0.1
- - 支持keras图片分类模型转换,支持keras官方模型： [Mobilenet](https://keras.io/applications/#mobilenet)\ [MobilenetV2](https://keras.io/applications/#mobilenetv2)\ [Xception](https://keras.io/applications/#xception)\ [InceptionV3](https://keras.io/applications/#inceptionv3)
- - 支持keras [layer列表](https://github.com/luozhiping/neural_network_on_ios/blob/master/Document/layer_list.markdown)
  - V0.1 support some keras imageclassfication model: [Mobilenet](https://keras.io/applications/#mobilenet)\ [MobilenetV2](https://keras.io/applications/#mobilenetv2)\ [Xception](https://keras.io/applications/#xception)\ [InceptionV3](https://keras.io/applications/#inceptionv3)
  - V0.1 support some keras [layer list](https://github.com/luozhiping/neural_network_on_ios/blob/master/Document/layer_list.markdown)
 
