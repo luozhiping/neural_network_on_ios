@@ -1,6 +1,6 @@
 import sys
 import argparse
-from keras_yolo3.yolo import YOLO, detect_video
+from keras_yolov3.yolo import YOLO, detect_video
 from PIL import Image
 from convert_weights import *
 from keras.applications import *

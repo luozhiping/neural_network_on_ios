@@ -15,14 +15,14 @@ then
     echo 'downloading yolov3-tiny weights'
     wget https://pjreddie.com/media/files/yolov3-tiny.weights
     cd ..
-    python3 keras_yolov3/convert.py keras_yolov3/yolov3-tiny.cfg keras_yolov3/yolov3-tiny.weights keras_yolov3/yolov3-tiny.h5
-    python3 convert_keras_yolo3.py --model-path keras_yolov3/yolov3-tiny.h5 --anchors-path keras_yolov3/tiny_yolo_anchors.txt --network-path "$2" --weights-path "$3"
+    python keras_yolov3/convert.py keras_yolov3/yolov3-tiny.cfg keras_yolov3/yolov3-tiny.weights keras_yolov3/yolov3-tiny.h5
+    python convert_keras_yolo3.py --model-path keras_yolov3/yolov3-tiny.h5 --anchors-path keras_yolov3/tiny_yolo_anchors.txt --network-path "$2" --weights-path "$3"
 else
     echo 'convert yolov3'
     cd keras_yolov3
     echo 'downloading yolov3 weights'
     wget https://pjreddie.com/media/files/yolov3.weights
     cd ..
-    python3 keras_yolov3/convert.py keras_yolov3/yolov3.cfg keras_yolov3/yolov3.weights keras_yolov3/yolov3.h5
-    python3 convert_keras_yolo3.py --model-path keras_yolov3/yolov3.h5 --anchors-path keras_yolov3/yolo_anchors.txt --network-path "$2" --weights-path "$3"
+    python keras_yolov3/convert.py keras_yolov3/yolov3.cfg keras_yolov3/yolov3.weights keras_yolov3/yolov3.h5
+    python convert_keras_yolo3.py --model-path keras_yolov3/yolov3.h5 --anchors-path keras_yolov3/yolo_anchors.txt --network-path "$2" --weights-path "$3"
 fi
