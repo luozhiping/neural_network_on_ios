@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         }
         let inputImage: DataWrapper
         if #available(iOS 10, *) {
-            inputImage = ImageData(imageFileName: "dog416", device: device!)
+            inputImage = ImageData(imageFileName: "dog", device: device!, fileExtension: "jpg")
             //            inputImage = ImageData(imageFileName: "Floortje224", device: device!)
             //            inputImage = ImageData(imageFileName: "Floortje224", device: device!)
             
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
                         let model2 = Model.init(networkFileName: "official__mobilenet", weightFileName: "keras__mobilenet")
 //                        let model2 = Model.init(networkFileName: "official_mobilenetv2", weightFileName: "keras_mobilenetv2")
 //        let model2 = Model.init(networkFileName: "official_xception", weightFileName: "keras_xception")
-//                let model2 = YoloModel.init(networkFileName: "keras_yolov3", weightFileName: "keras_yolov3")
+//                let model2 = YoloModel.init(networkFileName: "yolov3_tiny", weightFileName: "yolov3_tiny")
         //        let model2 = Model.init(networkFileName: "keras_yolov3_tiny", weightFileName: "keras_yolov3_tiny")
 //                let model2 = Model.init(networkFileName: "official_inceptionv3", weightFileName: "keras_inceptionv3")
         

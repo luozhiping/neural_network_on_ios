@@ -9,6 +9,7 @@ Running neural network on IOS(version 10.0 or newer) use GPU (support Keras mode
 
 ## Quick Start
 - [Quick Start: Using SimpleNN to do image classification](./Document/image_classification.markdown)
+- [Quick Start2: Using SimpleNN to do object detection](./Document/object_detection.markdown)
 - [Convert and Using keras model in SimpleNN](./Document/convert_keras_model.markdown)
 - [Convert my own keras model](./Document/convert_my_model.markdown)
 - [SimpleNN: Basic API](./Document/basic_api.markdown)
@@ -30,6 +31,9 @@ Running neural network on IOS(version 10.0 or newer) use GPU (support Keras mode
 - [Documents](./Document)
 
 ## Recently Change ([CHANGE LOG](./Document/change_log.markdown))
+
+### 2019-01-29 V0.2
+- V0.2 support keras yolov3 model, reference from [keras-yolo3](https://github.com/qqwweee/keras-yolo3)
 ### 2019-01-13 V0.1
  - V0.1 support some keras imageclassfication model: [Mobilenet](https://keras.io/applications/#mobilenet)\ [MobilenetV2](https://keras.io/applications/#mobilenetv2)\ [Xception](https://keras.io/applications/#xception)\ [InceptionV3](https://keras.io/applications/#inceptionv3)
  - V0.1 support some keras [layer list](https://github.com/luozhiping/neural_network_on_ios/blob/master/Document/layer_list.markdown)

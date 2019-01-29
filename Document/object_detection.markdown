@@ -36,6 +36,8 @@ modify code to load specify files
 Net = YoloModel.init(networkFileName: "yolov3", weightFileName: "yolov3")
 ```
 
+- Because Yolov3 has multi output, so you must use "YoloModel" class instead of "Model" class. YoloModel will return YoloOuput which calculates boxes.
+
 ### 4. Running ObjectDetection Target
 
 ![](./object_detection1.jpg)
@@ -43,3 +45,10 @@ Net = YoloModel.init(networkFileName: "yolov3", weightFileName: "yolov3")
 ### 5. Result
 
 ![](./example1.png)
+
+### 6. Inference time
+
+| model name(keras class name)|inference time(iphoneXR 12.1)|model size|
+| :----------| :-----------| :-----------|
+|[Yolov3](https://github.com/qqwweee/keras-yolo3)|409ms|248M|
+|[Yolov3-tiny](https://github.com/qqwweee/keras-yolo3)|70ms|35.4M|
