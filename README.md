@@ -1,7 +1,6 @@
 # SimpleNN: Neural Network Running On IOS using keras model
 Running neural network on IOS(version 10.0 or newer) use GPU (support Keras model)
 
-此库为IOS(版本 >= 10.0)上调用MetalPerformanceShaders和Metal API，在GPU上运行神经网络。当前支持转换keras模型
 ## Features
  - Use GPU running neural network, improve performance and save more phone battery.
  - Support convert and running [keras model](./Document/model_list.markdown).
@@ -29,6 +28,16 @@ Running neural network on IOS(version 10.0 or newer) use GPU (support Keras mode
 
 ## Documents
 - [Documents](./Document)
+
+## Example
+- [Quick Start: Using SimpleNN to do image classification](./Document/image_classification.markdown)
+
+![](./Document/example.png)
+
+- [Quick Start2: Using SimpleNN to do object detection](./Document/object_detection.markdown)
+
+![](./Document/example1.png)
+
 
 ## Recently Change ([CHANGE LOG](./Document/change_log.markdown))
 
